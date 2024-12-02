@@ -9,6 +9,7 @@ const Navbar = () => {
           <li className="flex justify-between">
             <Link to="/">Home</Link>
             <Link to="/branches">Branch</Link>
+            <Link to="/branch/add">Branch Add</Link>
             <Link to="/bank-accounts">Bank Account</Link>
             <Link to="/categories">Categories</Link>
             <Link to="/customers">Customers</Link>

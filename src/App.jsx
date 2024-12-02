@@ -16,6 +16,10 @@ import Navbar from "./components/Layouts/Navbar";
 import Footer from "./components/Layouts/Footer";
 import "./index.css";
 
+import BranchDetails from "./components/Branch/BranchDetails";
+import BranchUpdate from "./components/Branch/BranchUpdate";
+import BranchForm from "./components/Branch/BranchForm";
+
 function App() {
   return (
     <>
@@ -26,6 +30,9 @@ function App() {
             <Routes>
               <Route path="/assets" element={<CompanyAssets />} />
               <Route path="/branches" element={<Branches />} />
+              <Route path="/branch/:id" element={<BranchDetails />} />
+              <Route path="/branch/add" element={<BranchForm />} />
+              <Route path="/branch/update/:id" element={<BranchUpdate />} />
               <Route path="/bank-accounts" element={<BankAccounts />} />
               <Route path="/categories" element={<Categories />} />
               <Route path="/customers" element={<Customers />} />
