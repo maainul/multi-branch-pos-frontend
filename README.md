@@ -1,127 +1,186 @@
-### **Step-by-Step Guide to Install Tailwind CSS in React Project**
+import React, { useState } from "react";
+import Input from "./Input";
+import Select from "./Select";
 
-1. **Create a React App (if you haven't already)**
+const BranchForm = ({ initialData = {}, onSubmit, mode }) => {
+const [formData, setFormData] = useState(initialData);
 
-   If you don't have a React app yet, you can create one using **Vite** or **Create React App**. Here’s how you can set up a new React project with **Vite** (preferred for performance):
-
-   ```bash
-   npm create vite@latest my-app --template react
-   cd my-app
-   ```
-
-   If you prefer **Create React App**, use this command:
-
-   ```bash
-   npx create-react-app my-app
-   cd my-app
-   ```
-
-2. **Install Tailwind CSS and Dependencies**
-
-   In your React project folder, install **Tailwind CSS**, **PostCSS**, and **Autoprefixer** by running the following command:
-
-   ```bash
-   npm install tailwindcss postcss autoprefixer
-   ```
-
-3. **Generate Tailwind Configuration Files**
-
-   Once the dependencies are installed, run the following command to generate `tailwind.config.js` and `postcss.config.js` files:
-
-   ```bash
-   npx tailwindcss init
-   ```
-
-   This will create a `tailwind.config.js` file. **PostCSS** configuration is automatically handled by Tailwind.
-
-4. **Configure Tailwind CSS**
-
-   In your `tailwind.config.js` file, configure the paths to your JSX files to ensure Tailwind purges unused CSS in production:
-
-   ```js
-   // tailwind.config.js
-   export default {
-     content: [
-       "./index.html",
-       "./src/**/*.{js,jsx,ts,tsx}", // Make sure this covers all React files
-     ],
-     theme: {
-       extend: {},
-     },
-     plugins: [],
-   };
-   ```
-
-5. **Create or Update CSS File**
-
-   Open the CSS file in your project (usually `src/index.css`), and add the following Tailwind directives:
-
-   ```css
-   /* src/index.css */
-
-   /* Tailwind's base styles */
-   @tailwind base;
-
-   /* Tailwind's component styles */
-   @tailwind components;
-
-   /* Tailwind's utility styles */
-   @tailwind utilities;
-   ```
-
-6. **Import the CSS File into Your React App**
-
-   Make sure you're importing `index.css` (or whatever CSS file you added the Tailwind directives to) in your `src/main.jsx` or `src/index.js`:
-
-   ```jsx
-   // src/main.jsx (or src/index.js)
-   import React from "react";
-   import ReactDOM from "react-dom/client";
-   import App from "./App";
-   import "./index.css"; // Ensure Tailwind's CSS is imported
-
-   ReactDOM.createRoot(document.getElementById("root")).render(
-     <React.StrictMode>
-       <App />
-     </React.StrictMode>
-   );
-   ```
-
-### **Explanation:**
-
-- **Tailwind CSS**: This plugin processes your CSS files and applies Tailwind's utilities, components, and base styles.
-- **Autoprefixer**: This plugin ensures that your CSS includes vendor prefixes for better browser support.
-
-### **Step 3: Verify `tailwind.config.js` and `index.css`**
-
-Ensure that you have the `tailwind.config.js` file configured with the correct paths in the `content` array to purge unused CSS in production:
-
-```js
-// tailwind.config.js
-module.exports = {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,jsx,ts,tsx}", // Ensure this includes your React files
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
+const handleChange = (e) => {
+const { name, value } = e.target;
+setFormData((prevData) => ({
+...prevData,
+[name]: value,
+}));
 };
-```
 
-Also, make sure you have the Tailwind directives (`@tailwind base;`, `@tailwind components;`, and `@tailwind utilities;`) in your CSS file (usually `src/index.css`).
+const handleSubmit = (e) => {
+e.preventDefault();
+onSubmit(formData); // Pass form data to the parent component
+};
 
-### **Step 4: Rebuild the Project**
+const statusOptions = [
+{ value: "1", label: "Active" },
+{ value: "2", label: "Inactive" },
+{ value: "3", label: "Close" },
+];
 
-After creating the `postcss.config.js` file, you can restart the development server by running:
+return (
+<form onSubmit={handleSubmit} className="max-w-sm mx-auto">
+<div className="mb-3">
+<label htmlFor="branchName" className="block mb-2 text-sm font-medium">
+Branch Name
+</label>
+<Input
+type="text"
+name="branch_name"
+value={formData.branch_name || ""}
+onChange={handleChange}
+/>
+</div>
 
-```bash
-npm run dev
-```
+      <div className="mb-3">
+        <label htmlFor="branchPhone" className="block mb-2 text-sm font-medium">
+          Branch Phone
+        </label>
+        <Input
+          type="text"
+          name="branch_phone"
+          value={formData.branch_phone || ""}
+          onChange={handleChange}
+        />
+      </div>
 
-If you're using **Create React App**, use:
+      <div className="mb-3">
+        <label htmlFor="branchEmail" className="block mb-2 text-sm font-medium">
+          Branch Email
+        </label>
+        <Input
+          type="text"
+          name="branch_email"
+          value={formData.branch_email || ""}
+          onChange={handleChange}
+        />
+      </div>
 
-```bash
-npm start
-```
+      <div className="mb-3">
+        <label htmlFor="branchAddress" className="block mb-2 text-sm font-medium">
+          Branch Address
+        </label>
+        <textarea
+          rows="4"
+          name="branch_address"
+          value={formData.branch_address || ""}
+          onChange={handleChange}
+          className="block p-2.5 w-full text-sm bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+        ></textarea>
+      </div>
+
+      <div className="mb-3">
+        <label htmlFor="branchStatus" className="block mb-2 text-sm font-medium">
+          Branch Status
+        </label>
+        <Select
+          name="status"
+          value={formData.status || ""}
+          onChange={handleChange}
+          options={statusOptions}
+          placeholder="Select Status"
+        />
+      </div>
+
+      <div className="mb-3">
+        <label htmlFor="openDate" className="block mb-2 text-sm font-medium">
+          Open Date
+        </label>
+        <Input
+          type="date"
+          name="open_date"
+          value={formData.open_date || ""}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div>
+        <button
+          type="submit"
+          className="text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm w-full px-3 py-2"
+        >
+          {mode === "edit" ? "Update Branch" : "Add Branch"}
+        </button>
+      </div>
+    </form>
+
+);
+};
+
+export default BranchForm;
+
+import React from "react";
+import BranchForm from "./BranchForm";
+import { createBranch } from "../../services/branchService";
+
+const AddBranch = () => {
+const handleAddBranch = async (data) => {
+try {
+await createBranch(data);
+alert("Branch added successfully!");
+} catch (error) {
+console.error("Error adding branch:", error);
+}
+};
+
+return (
+<div>
+<h1 className="text-2xl font-bold mb-4">Add Branch</h1>
+<BranchForm onSubmit={handleAddBranch} mode="add" />
+</div>
+);
+};
+
+export default AddBranch;
+
+import React, { useEffect, useState } from "react";
+import BranchForm from "./BranchForm";
+import { getBranchDetails, updateBranch } from "../../services/branchService";
+import { useParams } from "react-router-dom";
+
+const UpdateBranch = () => {
+const { id } = useParams();
+const [branchDetails, setBranchDetails] = useState(null);
+
+useEffect(() => {
+const fetchBranch = async () => {
+const response = await getBranchDetails(id);
+setBranchDetails(response.data);
+};
+fetchBranch();
+}, [id]);
+
+const handleUpdateBranch = async (data) => {
+try {
+await updateBranch(id, data);
+alert("Branch updated successfully!");
+} catch (error) {
+console.error("Error updating branch:", error);
+}
+};
+
+return (
+<div>
+<h1 className="text-2xl font-bold mb-4">Update Branch</h1>
+{branchDetails && (
+<BranchForm initialData={branchDetails} onSubmit={handleUpdateBranch} mode="edit" />
+)}
+</div>
+);
+};
+
+export default UpdateBranch;
+
+1. Organize Imports
+   Group and reorder your imports:
+
+External dependencies (e.g., react, react-router-dom).
+Services (e.g., bankService, branchService).
+Components (e.g., Button, Label).
+Utilities (e.g., statusOptions, formatDate).

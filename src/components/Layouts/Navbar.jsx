@@ -11,6 +11,7 @@ const Navbar = () => {
             <Link to="/branches">Branch</Link>
             <Link to="/branch/add">Branch Add</Link>
             <Link to="/bank-accounts">Bank Account</Link>
+            <Link to="/bank-account/add">Bank Account Add</Link>
             <Link to="/categories">Categories</Link>
             <Link to="/customers">Customers</Link>
             <Link to="/delivery-companies">Delivery Companies</Link>

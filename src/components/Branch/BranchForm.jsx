@@ -50,7 +50,6 @@ const BranchForm = () => {
   return (
     <>
       <div className="pt-2">
-        <div></div>
         {successMessage && <p className="text-green-500">{successMessage}</p>}
         <form
           onSubmit={handleSubmit}

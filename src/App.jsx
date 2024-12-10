@@ -19,6 +19,9 @@ import "./index.css";
 import BranchDetails from "./components/Branch/BranchDetails";
 import BranchUpdate from "./components/Branch/BranchUpdate";
 import BranchForm from "./components/Branch/BranchForm";
+import BankAccountForm from "./components/BankAccount/BankAccountForm";
+import BankAccountUpdate from "./components/BankAccount/BankAccountUpdate";
+import BankAccountDetails from "./components/BankAccount/BankAccountDetails";
 
 function App() {
   return (
@@ -34,6 +37,15 @@ function App() {
               <Route path="/branch/add" element={<BranchForm />} />
               <Route path="/branch/update/:id" element={<BranchUpdate />} />
               <Route path="/bank-accounts" element={<BankAccounts />} />
+              <Route path="/bank-account/add" element={<BankAccountForm />} />
+              <Route
+                path="/bank-account/update/:id"
+                element={<BankAccountUpdate />}
+              />
+              <Route
+                path="/bank-account/show/:id"
+                element={<BankAccountDetails />}
+              />
               <Route path="/categories" element={<Categories />} />
               <Route path="/customers" element={<Customers />} />
               <Route

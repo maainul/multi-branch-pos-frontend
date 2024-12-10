@@ -13,11 +13,12 @@ const Select = ({ name, value, onChange, options, placeholder }) => {
          dark:focus:ring-blue-500 dark:focus:border-blue-500"
       >
         {placeholder && <option value="">{placeholder}</option>}
-        {options.map((option) => (
-          <option value={option.value} key={option.value}>
-            {option.label}
-          </option>
-        ))}
+        {options &&
+          options.map((option) => (
+            <option value={option.value} key={option.value}>
+              {option.label}
+            </option>
+          ))}
       </select>
     </>
   );

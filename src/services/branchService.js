@@ -22,13 +22,9 @@ export const deleteBranch = async (id) => {
 };
 
 export const updateBranch = async (id, updatedData) => {
-  console.log("====>", updatedData);
   const response = await axios.put(
     API_ENDPOINTS.branches.update(id),
     updatedData
   );
-  console.log("$$$$$$$$$$$$$$$$$");
-  console.log(response);
-  console.log("$$$$$$$$$$$$$$$$$");
   return response.data;
 };
